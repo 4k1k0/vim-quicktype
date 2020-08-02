@@ -1,2 +1,10 @@
-autocmd filetype go nnoremap <Leader>f <C-V>% :'<,'> !quicktype -l go --just-types --top-level MainStruct <CR>wcw
-autocmd filetype typescript nnoremap <Leader>f <C-V>% :'<,'> !quicktype -l ts --just-types --top-level MainInterface <CR>wwcw
+function! QuickType()
+    if &ft == 'typescript'
+        :exe "normal \<C-V>% : '\<,'> !quicktype -l ts --just-types --top-level MainInterface \<CR>\ww"
+    elseif &ft == 'go'
+        :exe "normal \<C-V>% : '\<,'> !quicktype -l go --just-types --top-level MainInterface \<CR>\w"
+    endif
+endfunction
+
+nnoremap <Leader>f :call QuickType()<CR>cw
+nnoremap <Leader>b w :source %<CR>
